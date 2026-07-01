@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #070c18;
+  --bg-card: #0d1526;
+  --bg-card2: #111d35;
+  --accent-blue: #0ea5e9;
+  --accent-indigo: #2563eb;
+  --accent-cyan: #06b6d4;
+  --accent-teal: #0d9488;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --accent-green: #10b981;
+  --text-primary: #e0f2fe;
+  --text-muted: #94a3b8;
+  --border: #1e3a5f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+@keyframes countdown-tick {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+.countdown-anim { animation: countdown-tick 1s ease-in-out infinite; }
+
+.glass {
+  background: rgba(13, 21, 38, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8, #818cf8, #67e8f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(14, 165, 233, 0.18);
+}
+
+input, select, textarea {
+  background: #0d1526 !important;
+  border: 1px solid #1e3a5f !important;
+  color: #e0f2fe !important;
+  border-radius: 8px !important;
+  transition: border-color 0.2s ease !important;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  border-color: #0ea5e9 !important;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: #475569 !important;
+}
+
+.status-badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+
+/* Sidebar active state uses blue now */
+.sidebar-item.active {
+  background: rgba(14,165,233,0.15);
+  border-left: 3px solid #0ea5e9;
+}
