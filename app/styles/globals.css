@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Warna Biru Paramadina & Kombinasi Putih Minimalis */
+    --paramadina-blue-dark: #0A2540;   /* Biru Utama Elegan */
+    --paramadina-blue-light: #1E3A8A;  /* Biru Terang untuk Hover/Aksen */
+    --paramadina-bg-light: #F8FAFC;    /* Putih Abu Sempurna untuk Background */
+    --paramadina-card-white: #FFFFFF;  /* Putih Bersih untuk Konten/Card */
+    --text-main: #1E293B;
+  }
+}
+
+body {
+  background-color: var(--paramadina-bg-light);
+  color: var(--text-main);
+  font-family: sans-serif;
+}
