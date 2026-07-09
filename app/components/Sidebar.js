@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 // ── MENAMBAHKAN IKON YANG COCOK UNTUK SETIAP HALAMAN ──
 import { 
   Bell, X, Info, AlertTriangle, CheckCircle,
-  LayoutDashboard, ClipboardList, History, Monitor, User, LogOut
+  LayoutDashboard, ClipboardList, History, Monitor, User, LogOut, ShieldCheck
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -15,9 +15,15 @@ export default function Sidebar() {
 
   // Menentukan menu berdasarkan folder rute aktif
   const isPtsp = pathname.startsWith("/monitoring");
+  const isAdmin = pathname.startsWith("/admin");
 
   // MASING-MASING MENU KINI MEMILIKI PROPERTI ICON YANG SESUAI
-  const menuItems = isPtsp
+  const menuItems = isAdmin
+    ? [
+        { name: "Dashboard Admin", href: "/admin/dashboard", icon: <LayoutDashboard size={18} /> },
+        { name: "Verifikasi Mahasiswa", href: "/admin/verifikasi", icon: <ShieldCheck size={18} /> },
+      ]
+    : isPtsp
     ? [
         { name: "Dashboard Monitoring", href: "/monitoring", icon: <Monitor size={18} /> },
       ]
@@ -58,7 +64,7 @@ export default function Sidebar() {
           </div>
           
           <span className="font-bold text-base sm:text-lg tracking-wide hidden sm:inline-block ml-1">
-            SIPAS <span className="text-gray-400 font-light text-sm">| {isPtsp ? "PTSP Admin" : "Mahasiswa"}</span>
+            SIPAS <span className="text-gray-400 font-light text-sm">| {isAdmin ? "Admin" : isPtsp ? "PTSP Admin" : "Mahasiswa"}</span>
           </span>
         </div>
 
@@ -123,29 +129,41 @@ export default function Sidebar() {
         <div className="p-4 border-t border-gray-100 bg-white space-y-3">
           
           {/* KOTAK PROFIL */}
-          <Link 
-            href="/mahasiswa/profile"
-            onClick={() => setIsOpen(false)}
-            className={`flex items-center gap-3 p-3 border rounded-xl shadow-sm transition-all duration-200 cursor-pointer ${
-              isProfileActive 
-                ? "bg-[#0A2540] border-[#0A2540] text-white scale-[1.02] shadow-md shadow-[#0A2540]/10" 
-                : "bg-slate-50 border-slate-100 text-gray-700 hover:bg-slate-100"
-            }`}
-          >
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 transition-colors ${
-              isProfileActive ? "bg-white text-[#0A2540]" : "bg-[#0A2540] text-white"
-            }`}>
-              <User size={16} />
+          {isAdmin ? (
+            <div className="flex items-center gap-3 p-3 border rounded-xl shadow-sm bg-slate-50 border-slate-100 text-gray-700">
+              <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 bg-[#0A2540] text-white">
+                <ShieldCheck size={16} />
+              </div>
+              <div className="overflow-hidden">
+                <h4 className="text-xs font-bold truncate text-[#0A2540]">Admin PTSP</h4>
+                <p className="text-[10px] font-medium tracking-wider uppercase text-gray-400">ADMINISTRATOR</p>
+              </div>
             </div>
-            <div className="overflow-hidden">
-              <h4 className={`text-xs font-bold truncate ${isProfileActive ? "text-white" : "text-[#0A2540]"}`}>
-                Prila Fathur Rizqi
-              </h4>
-              <p className={`text-[10px] font-medium tracking-wider uppercase ${isProfileActive ? "text-blue-200" : "text-gray-400"}`}>
-                MAHASISWA
-              </p>
-            </div>
-          </Link>
+          ) : (
+            <Link 
+              href="/mahasiswa/profile"
+              onClick={() => setIsOpen(false)}
+              className={`flex items-center gap-3 p-3 border rounded-xl shadow-sm transition-all duration-200 cursor-pointer ${
+                isProfileActive 
+                  ? "bg-[#0A2540] border-[#0A2540] text-white scale-[1.02] shadow-md shadow-[#0A2540]/10" 
+                  : "bg-slate-50 border-slate-100 text-gray-700 hover:bg-slate-100"
+              }`}
+            >
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 transition-colors ${
+                isProfileActive ? "bg-white text-[#0A2540]" : "bg-[#0A2540] text-white"
+              }`}>
+                <User size={16} />
+              </div>
+              <div className="overflow-hidden">
+                <h4 className={`text-xs font-bold truncate ${isProfileActive ? "text-white" : "text-[#0A2540]"}`}>
+                  Prila Fathur Rizqi
+                </h4>
+                <p className={`text-[10px] font-medium tracking-wider uppercase ${isProfileActive ? "text-blue-200" : "text-gray-400"}`}>
+                  MAHASISWA
+                </p>
+              </div>
+            </Link>
+          )}
 
           {/* TOMBOL LOGOUT */}
           <div>
